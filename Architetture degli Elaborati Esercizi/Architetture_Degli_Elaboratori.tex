@@ -1,0 +1,1362 @@
+% --- ARCHITETTURE DEGLI ELABORATORI ---
+\documentclass[a4paper, 12pt]{article} % Qui era 12pt
+
+% --- PACKAGES ---
+
+\usepackage[italian]{babel}
+\usepackage{comment}
+
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+
+\usepackage{amsmath}
+
+%\usepackage{paralist} % SE ATTIVO PARALIST, ITEMIZE ED ENUMERATE NON FUNZIONANO!!!
+
+\usepackage{amsthm}
+% it introduces the \newtheorem command
+\usepackage{amssymb}
+% new mathematical symbols
+\usepackage{eucal}
+% other mathematical symbols
+\usepackage{gensymb}
+% \degree \celsius \micro \ohm \perthousand
+\usepackage{mathptmx}
+% other mathematical symbols
+\usepackage{latexsym}
+% other mathematical symbols
+\usepackage{mathtools}
+% supplements amsmath
+\usepackage{textcomp}
+% extra symbols arrows like \textrightarrow, \texteuro, \textcelsius
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{multicol}
+% Per le colonne
+
+%\usepackage{xcolor}
+% Per colorare il testo
+
+\usepackage[table, dvipsnames]{xcolor}
+% Per ulteriori colori
+% Quel table serve invece per colorare le righe in tabular
+
+\usepackage[document]{ragged2e}
+
+\usepackage{blindtext}
+
+\usepackage[scaled=.92]{helvet}
+
+\usepackage{tikz}
+
+%\usepackage{floatrow}
+
+%\usepackage{makecell}
+
+\usepackage[T1]{fontenc}
+%\usepackage{fourier, erewhon}
+%\usepackage{geometry}
+\usepackage{array, caption, floatrow, tabularx, makecell, booktabs}%
+
+\usepackage{amsfonts}
+
+%\graphicspath{ {./images/} }
+% graphicspath dice a LaTex la path della cartella dove si trovano le immagini.
+
+%\usepackage{float}
+
+\usepackage{etoc}
+
+\usepackage{titlesec}
+%\titleformat{\section}{\normalfont\Large\bfseries\center}{}{0pt}{} % Questo serve per togliere il numero dalla section ; Qui ho aggiunto \center e ora sono centrati
+
+\usetikzlibrary{snakes}
+
+\usepackage[most]{tcolorbox}
+
+%\begin{comment}
+
+\titleformat
+{\section} % command
+[display] % shape
+{\normalfont\Large\bfseries\center} % format
+{} % label
+{-2ex} % sep %0.5ex
+{
+	\rule{\textwidth}{1pt} % 1 pt
+	\vspace{-2pt} % 1ex
+	\centering
+} % before-code
+[
+\vspace{-2ex}% -0.5ex valori originari
+\rule{\textwidth}{0.3pt} % 0.3pt
+] % after-code
+
+%\end{comment}
+
+\begin{comment}
+\titleformat{\section}[block]
+{\titlerule\addvspace{4pt}\normalfont\Large\bfseries\center}
+{\thesection\enspace}{0pt}{}[\vspace{2pt}\titlerule]
+\end{comment}
+
+\titleformat{\subsection}{\normalfont\Large\bfseries\center\color{red}}{}{0pt}{} % Questo l'ho copiato da sopra ed ho aggiunto center e ora sono centrati
+\titleformat{\subsubsection}{\normalfont\Large\bfseries\center\color{red}}{}{0pt}{} % Questo l'ho copiato da sopra ed ho aggiunto center e ora sono centrati
+\setcounter{secnumdepth}{1} % levels under \section are not numbered
+\setcounter{tocdepth}{2}    % levels under \subsection are not listed in the TOC
+
+%\usepackage{sectsty} % Se lo attivo mi metti i numerini nella section
+%\sectionfont{\centering}
+%\allsectionsfont{\centering}
+
+\usepackage{diffcoeff} % per le derivate
+
+\usepackage{lipsum}
+
+\usepackage{ltablex}
+
+%\usepackage{multirow}
+
+%\usepackage{systeme}
+
+\usetikzlibrary{arrows.meta}
+
+\usetikzlibrary{chains,decorations.pathreplacing}
+
+\usepackage[normalem]{ulem} % serve per sbarrare il testo (strikethrough), usare \sout
+
+\usetikzlibrary{tikzmark} % per circondare gli elementi di una tabella (tabular)
+
+\usetikzlibrary{shapes}
+
+\usepackage{circuitikz}
+
+\usetikzlibrary{arrows,shapes.gates.logic.US,shapes.gates.logic.IEC,calc}
+
+\tikzstyle{branch}=[fill,shape=circle,minimum size=3pt,inner sep=0pt]
+
+\usepackage{subfig} % serve per avere immagini una accanto all'altra
+
+\usepackage{cancel} 
+
+\usetikzlibrary{matrix}
+
+\usepackage{soul}
+
+%\usepackage{emerald}% per dalla 1-4 firma (questo mi da errore, not found)
+
+\usepackage{frcursive}% serve per la firma finale (nelle Conclusioni)
+
+\usepackage{inslrmin}% per la 6 firma
+
+% !TeX root = ../Architetture_Degli_Elaboratori.tex
+
+% --- FINE USEPACKAGES ---
+
+\makeindex
+
+\begin{document}
+
+\title{\huge{\textbf{Architetture degli Elaboratori}}}
+\author{Luca}
+\date{14, Novembre 2020}
+
+\maketitle	
+
+\pagebreak
+
+% INIZIO: TABLEOFCONTENTS
+
+\let\cleardoublepage\clearpage
+\tableofcontents
+\pagenumbering{arabic}
+\setcounter{page}{2}
+%\etocsettocstyle{\subsection*{This Chapter contains:}}{\noindent\rule{\linewidth}{.4pt}}
+% C'è bisogno del package etoc
+%\chapter{Extinct Species}
+%\localtableofcontents
+
+% FINE: TABLEOFCONTENTS
+
+\fancyhf{}
+\begin{comment}
+\renewcommand{\headrulewidth}{2pt}
+\renewcommand{\footrulewidth}{1pt}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RO]{\nouppercase{\rightmark}}
+\fancyfoot[LE, RO]{\thepage}
+\end{comment}
+
+% --- CONVERSIONE BINARIO, OTTALE, DECIMALE, ESADECIMALE ---
+
+\newpage
+
+\section{Conversione Binario - Ottale - Decimale - Esadecimale}
+
+
+\textsf{\large{\color{red} Esercizi: 1) Convertire i seguenti numeri decimali in \
+		base 2: $371, 3224, 114.65625$}} \\
+
+$\mathbf{371} = 2^8 + 115 \rightarrow 115 = 2^6 + 51 \rightarrow 51 = 2^5 + 19$ $\rightarrow 19 = 2^4 + 3$ \\ $3 = 2^1 + 1 \rightarrow 1 = 2^0 $ \\
+$ 2^8 + 2^6 + 2^5 + 2^4 + 2^1 + 2^0 = \mathbf{371} $ \\
+$ \mathbf{371_{10}} = 101110011_2 $ \hspace{0.3cm} \textrm{\color{red} METODO 1}
+\\
+\textrm{\color{red} METODO 2} \\
+
+\noindent\begin{minipage}{.25\linewidth}
+\begin{equation*}
+\begin{tabular}{c|c}
+371 & \\
+185 & 1 \\
+92 & 1 \\
+46 & 0 \\
+23 & 0 \\
+11 & 1 \\
+5 & 1 \\
+2 & 1 \\
+1 & 0 \\
+0 & 1
+\end{tabular}
+\end{equation*}
+\end{minipage}
+\begin{minipage}{.25\linewidth}
+\textrm{\color{red}\textuparrow \hspace{0.2cm}Dal basso verso l'Alto} \\
+$ \mathbf{371_{10} = 101110011_2}$ \\
+\end{minipage}
+\quad
+
+% --- 3224 ---
+\textrm{\color{red} 3224} \\
+\noindent\begin{minipage}{.25\linewidth}
+\begin{equation*}
+	\begin{tabular}{c|c}
+		3224 & \\
+		1612 & 0 \\
+		806 & 0 \\
+		403 & 0 \\
+		201 & 1 \\
+		100 & 1 \\
+		50 & 0 \\
+		25 & 0 \\
+		12 & 1 \\
+		6 & 0 \\
+		3 & 0 \\
+		1 & 1 \\
+		0 & 1
+	\end{tabular}
+\end{equation*}
+\end{minipage}
+\begin{minipage}{.25\linewidth}
+$ \mathbf{3224_{10} = 110010011000_2} $ \\
+\end{minipage}
+\quad
+
+% --- 114,65625 ---
+\pagebreak
+\textrm{\color{red} 114,65625} \\
+\begin{align*}
+	114,65625 &= 2^6 + 50,65625 \\
+	50,65625 &= 2^5 + 18,65625 \\
+	18,65625 &= 2^4 + 2,65625 \\
+	2,65625 &= 2^1 + 0,65625 \\
+	0,65625 &= 2^{-1} + 0,15625 \\
+	0,15625 &= 2^{-3} + 0,03125 \\
+	0,03125 &= 2^{-5} \\
+\end{align*}
+
+\centering{
+$ \mathbf{114,65625_{10} = 1110010,10101_2} $
+}
+
+% --- ESERCIZIO 2 ---
+\flushleft{
+\textsf{\large{\color{red} 2) Convertire i seguenti numeri in base 8 e 16}} \\
+}
+
+\begin{gather*}
+	\underbrace{\rm 11} \hspace{0.3cm}\underbrace{100} \hspace{0.3cm} \underbrace{110} \hspace{0.3cm} \underbrace{100} \hspace{0.3cm} \underbrace{110}\\
+	\hspace{0.5cm}2^1 + 2^0 \hspace{0.5cm}4 \hspace{0.7cm} 6 \hspace{1cm} 2^2 \hspace{0.7cm} 2^2 + 2^1
+\end{gather*}
+
+\textsf{\normalsize{Raggruppo in gruppi di 3 (questo per la base 8) $ 8 \text{ è } 2^3$}} \\
+$ \mathbf{11100110100110_2 = 34646_8} $ \\
+
+\begin{gather*}
+	\underbrace{\rm 11} \hspace{0.3cm}\underbrace{1001} \hspace{0.3cm} \underbrace{1010} \hspace{0.3cm} \underbrace{0110} \\
+	\hspace{0.5cm}2^1 + 2^0 \hspace{0.5cm}9 \hspace{0.5cm}10 = A \hspace{0.5cm} 2^2 + 2^1
+\end{gather*}
+
+\textsf{\normalsize{Raggruppo in gruppi di 4 (questo per la base 16) $ 16 \text{ è } 2^4$}} \\
+$ \mathbf{11100110100110_2 = 39A6_{16}} $ \break
+
+% --- ESERCIZIO 3 ---
+
+\textsf{\large{\color{red} 3) Convertire i numeri esadecimali in binario}} \\
+
+$ \color{red}\boxed{\normalcolor F} \color{blue}\boxed{\normalcolor A} \color{green}\boxed{\normalcolor 3} \color{violet}\boxed{\normalcolor 1} \color{orange}\boxed{\normalcolor C}$ \textsf{\normalsize{Una cifra può essere rappresentata da 4 cifre binarie}} \\
+
+\begin{align*}
+	\color{red}15_{10} &= 2^3 + 2^2 + 2^1 + 2^0 = 1111_2 \\
+	\color{blue}A_{16} &= 10_{10} = 2^3 + 2^1 = 1010_2 \\
+	\color{green}3_{16} &= 3_{10} = 2^1 + 2^0 = 0011_2 \\
+	\color{violet}1_{16} &= 1_{10} = 2^0 = 0001_2 \\
+	\color{orange}C_{16} &= 12_{10} = 2^3 + 2^2 = 1100_2 \\
+\end{align*}
+
+$\mathbf{FA31C_{16} = 11111010001100011100_2}$ \\
+
+% --- ESERCIZIO 4 ---
+
+\textsf{\large{\color{red} 4) Convertire da esadecimale a decimale}} \\
+
+$ AAB_{16} $ \\
+
+\begin{align*}
+	B \cdot 16^0 &= 11 \cdot 1 = 11 \\
+	A \cdot 16^1 &= 10 \cdot 16 = 160 \\
+	A \cdot 16^2 &= 10 \cdot 256 = 2560 \\
+\end{align*}
+
+$ 12 + 160 + 2560 = 2731 $ \\
+$ \mathbf{AAB_{16} = 2731_{10}} $ \\
+
+% --- COMPLEMENTO A 2, ECCESSO 128 E 256, MASCHERATURE DEI BITS ---
+
+\newpage
+
+\section{Complemento a 2 - Eccesso 128 e 256 - Mascherature dei bits}
+
+\textsf{\large{\color{red} 5) \textbf{\normalcolor Quanti valori sono codificabili con 2-4-7-10 bit?}}} \\
+
+\textsf{\normalsize{$N$ bit $ \Longrightarrow 2^N$}} \break
+
+\textsf{\large{\color{red} 6) \textbf{\normalcolor Per codificare 1598 numeri quanti bit/byte sono necessari?}}} \\
+
+$ 2^N \geq 1598 $ \\ $ 2^{10} = 1024 $ \\ $ 2^{11} = 2048 > 1598 $ \\
+$2$ \text{ byte } = $16$ \text{ bit } \\
+\textsf{\normalsize{Il byte o lo si prende tutto o niente.}} \\
+
+$ 2^{16} = 65536 > 1598 $ \break
+
+\textsf{\large{\color{red} 7) \textbf{\normalcolor Quante cifre binarie sono necessarie per codificare X numeri distinti ($log_2 X = log_{10} X / log_{10} 2$)?}}} \break
+
+\textsf{\large{\color{red} 8) \textbf{\normalcolor Si convertono i seguenti numeri decimali in numeri binari in complemento a 2: $-56, -88, 243$ Si utilizzino 8 bit per rappresentare il risultato?}}} \break
+
+\textsf{\large{\color{red} 9) \textbf{\normalcolor Si convertano i seguenti numeri decimali in numeri binari in eccesso 128 e 256. $-56, -37, -243$}}} \break
+
+% --- ESERCIZIO 10 ---
+
+\textsf{\large{\color{red} 10) \textbf{\normalcolor Si pongano a 1 bit di posizione dspari del byte. $11010011$}}} \\
+
+\newcommand{\AND}{\text{\textrm{\color{red}{AND}}}}
+\newcommand{\OR}{\text{\textsl{\color{red}{OR}}}}
+%\newcommand{\sumOut}{\text{\textsl{\color{gray}{Sum}}}}
+
+\noindent\begin{minipage}{.5\linewidth}
+\begin{equation*}
+	\begin{tikzpicture}[
+		row 1/.style={font=\textsl,font=\scriptsize,black!85, anchor=west,
+			inner sep=1.5pt},
+		every node/.style={column sep=.5mm,row sep=1mm}]
+		\matrix (m) [matrix of math nodes,
+		nodes in empty cells,
+		%nodes=draw
+		] 
+		{
+			&   &   &   &   &   &   &   &   &\\
+			& 1 & 1 & 0 & 1 & 0 & 0 & 1 & 1 & \\    
+			& 1 & 0 & 1 & 0 & 1 & 0 & 1 & 0 &[10mm]		\OR  \\ 
+			& 1 & 1 & 1 & 1 & 1 & 0 & 1 & 1 & \\                                          
+		};
+	
+		\draw[-,color=black,semithick] (m-3-2.south west) -- (m-3-9.south east);
+	\end{tikzpicture}
+\end{equation*}
+\end{minipage}
+\quad
+\begin{minipage}{.25\linewidth}
+\begin{tabular}{c|c|c}
+	A & B & A OR B \\
+	\hline
+	0 & 0 & 0 \\
+	0 & 1 & 1 \\
+	1 & 0 & 1 \\
+	1 & 1 & 1 \\
+\end{tabular}
+\quad
+\end{minipage}
+\textsf{\normalsize{\\Poteva andare bene anche questa mascheratura: }} \\
+\begin{minipage}{.5\linewidth}
+\begin{equation*}
+	\begin{tikzpicture}[
+		row 1/.style={font=\textsl,font=\scriptsize,black!85, anchor=west,
+			inner sep=1.5pt},
+		every node/.style={column sep=.5mm,row sep=1mm}]
+		\matrix (m) [matrix of math nodes,
+		nodes in empty cells,
+		%nodes=draw
+		] 
+		{
+			&   &   &   &   &   &   &   &   &\\
+			& 1 & 1 & 0 & 1 & 0 & 0 & 1 & 1 & \\    
+			& 0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 &[10mm]		\OR  \\ 
+			& 1 & 1 & 1 & 1 & 1 & 0 & 1 & 1 & \\                                          
+		};
+		
+		\draw[-,color=black,semithick] (m-3-2.south west) -- (m-3-9.south east);
+	\end{tikzpicture}
+\end{equation*}
+\quad
+\end{minipage}
+
+% --- ESERCIZIO 11 ---
+
+\textsf{\large{\color{red} 11) \textbf{\normalcolor Si pongano a 0 i primi 4 bit del byte. $11010011$}}} \\
+
+\noindent\begin{minipage}{.5\linewidth}
+\begin{equation*}
+	\begin{tikzpicture}[
+		every node/.style={column sep=.5mm,row sep=1mm}]
+		\matrix (m) [matrix of math nodes,
+		nodes in empty cells,
+		%nodes=draw
+		] 
+		{
+			& 1 & 1 & 0 & 1 & 0 & 0 & 1 & 1 & \\    
+			& 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 &[10mm]		\AND  \\ 
+			& 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & \\                                          
+		};
+		
+		\draw[-,color=black,semithick] (m-2-2.south west) -- (m-2-9.south east);
+	\end{tikzpicture}
+\end{equation*}
+\end{minipage}
+\begin{comment}
+\begin{minipage}{.25\linewidth}
+	\begin{tabular}{c|c|c}
+		A & B & A AND B \\
+		\hline
+		0 & 0 & 0 \\
+		0 & 1 & 0 \\
+		1 & 0 & 0 \\
+		1 & 1 & 1 \\
+	\end{tabular}
+\end{minipage}
+\end{comment}
+\begin{minipage}{.5\linewidth}
+\begin{equation*}
+	\begin{tikzpicture}[
+		every node/.style={column sep=.5mm,row sep=1mm}]
+		\matrix (m) [matrix of math nodes,
+		nodes in empty cells,
+		%nodes=draw
+		] 
+		{
+			& 1 & 1 & 0 & 1 & 0 & 0 & 1 & 1 & \\    
+			& 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 &[10mm]		\AND  \\ 
+			& 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & \\                                          
+		};
+		
+		\draw[-,color=black,semithick] (m-2-2.south west) -- (m-2-9.south east);
+	\end{tikzpicture}
+\end{equation*}
+\end{minipage} % è importante non aggiungere una riga, altrimenti si incasina, non so perchè
+\begin{minipage}{.25\linewidth}
+\begin{tabular}{c|c|c}
+	A & B & A AND B \\
+	\hline
+	0 & 0 & 0 \\
+	0 & 1 & 0 \\
+	1 & 0 & 0 \\
+	1 & 1 & 1 \\
+\end{tabular}
+\end{minipage}
+\quad
+
+\textsf{\normalsize{I primi 4 bit da sinistra o da destra? Qui l'abbiamo fatto in entrambi i modi.}} \break
+
+% --- ESERCIZIO 12 ---
+
+\textsf{\large{\color{red} 12) \textbf{\normalcolor Si verifichi che il terzo bit del byte $11001100$ è 1.}}} \\
+
+\noindent\begin{minipage}{.5\linewidth}
+\begin{equation*}
+	\begin{tikzpicture}[
+		row 1/.style={font=\textsl,font=\scriptsize,black!85, anchor=west,
+			inner sep=1.5pt},
+		every node/.style={column sep=.5mm,row sep=1mm}]
+		\matrix (m) [matrix of math nodes,
+		nodes in empty cells,
+		%nodes=draw
+		] 
+		{
+			& 7 & 6 & 5 & 4 & 3 & \color{red}2 & 1 & 0 &\\
+			& 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & \\    
+			& 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 &[10mm]		\AND  \\ 
+			& 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 & \\                                          
+		};
+		
+		\draw[-,color=black,semithick] (m-3-2.south west) -- (m-3-9.south east);
+	\end{tikzpicture}
+\end{equation*}
+\end{minipage}
+\begin{minipage}{.25\linewidth}
+\textsf{\normalsize{Il terzo bit a sinistra sarebbe quello in posizione \color{red}2 \normalcolor(in rosso)}} \\
+\end{minipage}
+\quad
+\begin{minipage}{.25\linewidth}
+\textsf{\normalsize{Controllo tra risultato e input}} \\
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\begin{equation*}
+	\begin{tikzpicture}[
+		every node/.style={column sep=.5mm,row sep=1mm}]
+		\matrix (m) [matrix of math nodes,
+		nodes in empty cells,
+		%nodes=draw
+		] 
+		{
+			& 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & \\    
+			& 0 & 0 & 0 & 0 & 0 & 1 & 0 & 0 &[10mm]		\OR  \\ 
+			& 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 & \\                                          
+		};
+		
+		\draw[-,color=black,semithick] (m-2-2.south west) -- (m-2-9.south east);
+	\end{tikzpicture}
+\end{equation*}
+\end{minipage}
+
+% --- ESERCIZIO 13 ---
+
+\textsf{\large{\color{red} 13) \textbf{\normalcolor Si eseguano le seguenti somme in base 2: $12_{10} + 7_{10} \hspace{0.3cm} 67_{10} + 38_{10} \hspace{0.3cm} 89_{10} + 147_{10}$}}} \\
+
+\noindent\begin{minipage}{.25\linewidth}
+\begin{align*}
+	12 &= 2^3 + 2^2 \\
++	7 &= 2^2 + 2^1 + 2^0 \\
+	19&
+\end{align*}
+\end{minipage}
+\begin{minipage}{.25\linewidth}
+	\begin{equation*}
+		\begin{tikzpicture}[
+			every node/.style={column sep=.5mm,row sep=1mm}]
+			\matrix (m) [matrix of math nodes,
+			nodes in empty cells,
+			%nodes=draw
+			] 
+			{
+				&   & 1 & 1 & 0 & 0 & \\    
+				&   &   & 1 & 1 & 1 &[10mm]		+\\ 
+				& 1 & 0 & 0 & 1 & 1 & = 2^4 + 2^1 + 2^0 = 16 + 2 + 1 = \mathbf{19}\\                                          
+			};
+			
+			\draw[-,color=black,semithick] (m-2-2.south west) -- (m-2-6.south east);
+		\end{tikzpicture}
+	\end{equation*}
+\end{minipage}
+
+\pagebreak
+
+\noindent\begin{minipage}{.25\linewidth}
+\begin{align*}
+	67 &+ 38 = 105 \\
+	67 &= 2^6 + 2^1 + 2^0 \\
+	38 &= 2^5 + 2^2 + 2^1 \\
+\end{align*}
+\end{minipage}
+\begin{minipage}{.25\linewidth}
+	\begin{equation*}
+		\begin{tikzpicture}[
+			every node/.style={column sep=.5mm,row sep=1mm}]
+			\matrix (m) [matrix of math nodes,
+			nodes in empty cells,
+			%nodes=draw
+			] 
+			{
+				& 1 & 0 & 0 & 0 & 0 & 1 & 1 &\\    
+				& 0 & 1 & 0 & 0 & 1 & 1 & 0 &[10mm]		+\\ 
+				& 1 & 1 & 0 & 1 & 0 & 0 & 1 & = 2^6 + 2^5 + 2^3 + 2^0 = 64 + 32 + 8 + 1 = \mathbf{105} \\                                          
+			};
+			
+			\draw[-,color=black,semithick] (m-2-2.south west) -- (m-2-8.south east);
+		\end{tikzpicture}
+	\end{equation*}
+\end{minipage}
+
+\noindent\begin{minipage}{.25\linewidth}
+	\begin{align*}
+		89 &+ 147 = 236 \\
+		89 &= 2^6 + 2^4 + 2^3 + 2^0 \\
+		147 &= 2^7 + 2^4 + 2^2 + 2^0 \\
+	\end{align*}
+\end{minipage}
+\begin{minipage}{.25\linewidth}
+	\begin{equation*}
+		\begin{tikzpicture}[
+			every node/.style={column sep=.5mm,row sep=1mm}]
+			\matrix (m) [matrix of math nodes,
+			nodes in empty cells,
+			%nodes=draw
+			] 
+			{
+				&   & 1 & 0 & 1 & 1 & 0 & 0 & 1 &\\    
+				& 1 & 0 & 0 & 1 & 0 & 0 & 1 & 1 &[10mm]		+\\ 
+				& 1 & 1 & 1 & 0 & 1 & 1 & 0 & 0 & \\                                         
+			};
+			
+			\draw[-,color=black,semithick] (m-2-2.south west) -- (m-2-9.south east);
+		\end{tikzpicture}
+	\end{equation*}
+\end{minipage}
+
+$ = 2^7 + 2^6 + 2^5 + 2^3 + 2^2 = 128 + 64 + 32 + 8 + 4 = \mathbf{236} $ \break
+
+% --- ESERCIZIO 14 --- 
+
+\textsf{\large{\color{red} 14) \textbf{\normalcolor Si eseguano le seguenti differenze in base 2 (complemento a 2, utilizzando 8 bit per rappresentare i numeri): $8_{10} - 17_{10} \hspace{0.3cm} 37_{10} - 23_{10} \hspace{0.3cm} 5_{10} - 117_{10}$}}} \\
+
+\begin{itemize}
+\item \textsf{\normalsize{Complemento a due:}}
+	\begin{itemize}
+	\item Il riporto dei bit più a sinistra viene ignorato.
+	%\end{itemize}
+%\end{itemize}
+%\begin{itemize}
+	\item \textsf{\normalsize{8 bit $[-128; +127]$}}
+	%\begin{itemize}
+		\item Se gli addendi sono di segno opposto non si può verificare un \
+		overflow.
+		\item L' \color{red} overflow \normalcolor si verifica se il riporto \
+		generato è diverso dal riporto utilizzato.
+		Insomma se i primi due bit a sinistra sono diversi, c'è un overflow.
+	\end{itemize}
+%\end{itemize}
+\end{itemize}
+\noindent\begin{minipage}{.25\linewidth}
+\begin{align*}
+&8 - 17 = -9 \Longrightarrow 8 + (-17) \\
+&8 = 2^3 = \color{violet}000001000 \\
+-1&7 \rightarrow 17 = 2^4 + 2^0 = \color{blue}00010001 \\
+\end{align*}
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\textsf{\normalsize{Ora invertiamo i \color{blue}bits \normalcolor del 17 e li sommiamo ad 1 (quelli in \color{blue}blu)}} \\
+\end{minipage}
+\noindent\begin{minipage}{.5\linewidth}
+	\begin{equation*}
+		\begin{tikzpicture}[
+			every node/.style={column sep=.5mm,row sep=1mm}]
+			\matrix (m) [matrix of math nodes,
+			nodes in empty cells,
+			%nodes=draw
+			] 
+			{
+				& 1 & 1 & 1 & 0 & 1 & 1 & 1 & 0 &\\    
+				&   &   &   &   &   &   &   & 1 &[10mm]		+\\ 
+				& \color{orange}1 & \color{orange}1 & \color{orange}1 & \color{orange}0 & \color{orange}1 & \color{orange}1 & \color{orange}1 & \color{orange}1 & \\                                         
+			};
+			
+			\draw[-,color=black,semithick] (m-2-2.south west) -- (m-2-9.south east);
+		\end{tikzpicture}
+	\end{equation*}
+\end{minipage}
+% Il riporto lo scrivo in verde, mentre il segno lo scrivo in rosso.
+\begin{minipage}{.25\linewidth}
+	\begin{equation*}
+		\begin{tikzpicture}[
+			row 1/.style={font=\textsl,font=\scriptsize,black!85, anchor=west,
+				inner sep=1.5pt},
+			every node/.style={column sep=.5mm,row sep=1mm}]
+			\matrix (m) [matrix of math nodes,
+			nodes in empty cells,
+			%nodes=draw
+			] 
+			{
+				\color{green}0& \color{green}0 & 0 & 0 & 1 & 0 & 0 & 0 &   &\\
+				& \color{violet}0 & \color{violet}0 & \color{violet}0 & \color{violet}0 & \color{violet}1 & \color{violet}0 & \color{violet}0 & \color{violet}0 & \\    
+				& \color{orange}1 & \color{orange}1 & \color{orange}1 & \color{orange}0 & \color{orange}1 & \color{orange}0 & \color{orange}0 & \color{orange}1 &[10mm]		+\\ 
+				& \color{red}1 & \color{teal}1 & \color{teal}1 & \color{teal}1 & \color{teal}0 & \color{teal}1 & \color{teal}1 & \color{teal}1 & \\                                          
+			};
+			
+			\draw[-,color=black,semithick] (m-3-2.south west) -- (m-3-9.south east);
+		\end{tikzpicture}
+	\end{equation*}
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\textsf{\normalsize{Quei due 0 in \color{green}verde \normalcolor indicano che \color{red}non \normalcolor c'è l'overflow, perchè i primi due bit a sinistra (del riporto) sono uguali e non sono diversi.}}
+\end{minipage}
+\begin{minipage}{.35\linewidth}
+	\textsf{\normalsize{Quel uno \color{red} rosso \normalcolor a sinistra (ovvero il primo bit a sinistra) indica che il segno deve essere un \color{red} meno - \normalcolor .\\ Mentre se fosse stato uno zero, il segno sarebbe stato positivo.}}
+\end{minipage}
+
+\textsf{\normalsize{Ora prendiamo il risultato che abbiamo trovato quello colorato in \color{teal}azzurro \normalcolor e lo invertiamo (ovvero dove c'è zero mettiamo 1 e viceversa e poi lo sommiamo a 1.) }} \\
+
+\noindent\begin{minipage}{.5\linewidth}
+	\begin{equation*}
+	\begin{tikzpicture}[
+		every node/.style={column sep=.5mm,row sep=1mm}]
+		\matrix (m) [matrix of math nodes,
+		nodes in empty cells,
+		%nodes=draw
+		] 
+		{
+			& 0 & 0 & 0 & 0 & 1 & 0 & 0 & 0 &\\    
+			&   &   &   &   &   &   &   & 1 &[10mm]		+\\ 
+			& 0 & 0 & 0 & 0 & 1 & 0 & 0 & 1 & = 2^3 + 2^0 = 9 \\                                         
+		};
+		
+		\draw[-,color=black,semithick] (m-2-2.south west) -- (m-2-9.south east);
+	\end{tikzpicture}
+\end{equation*}
+\end{minipage}
+
+\textsf{\normalsize{Abbiamo ottenuto 9, ma visto che nell' operazione precedente, c'era quell'1 (colorato in \color{red}rosso\normalcolor) come primo bit a sinistra; ciò significa che il valore del segno deve essere negativo, ovvero un \color{red}meno - \normalcolor. \\ E quindi quel 9 positivo diventa, come risultato finale -9}} \break
+
+\textsf{\normalsize{Quindi, riepilogando i passaggi che abbiamo fatto:\\
+Noi dovevamo fare 8 - 17 \\ Abbiamo negato il 17. La negazione in complemento a due, richiede due passaggi:}} \\
+\begin{itemize}
+	\item Sostituzione di tutti gli uno con degli zero e viceversa.
+	\item Si aggiunge 1 al risultato.
+\end{itemize}
+
+\textsf{\normalsize{Dopichè abbiamo fatto 8 + (-17) e abbiamo trovato il risultato, il primo bit a sinistra indicava il segno (positivo o negativo). \\ Abbiamo poi negato il risultato (invertendo i bit a zero e a 1 e sommando 1) e abbiamo trovato 9, che è diventato -9 perchè il primo bit a sinistra (dell'operazione 8 + (-17)) era un 1.}} \\
+
+\pagebreak
+
+\noindent\begin{minipage}{.25\linewidth}
+\begin{align*}
+	37 - 23 &= 37 + (-23) = 14 \\
+	37 &= 2^5 + 2^2 + 2^0 \\
+	-23 &= 23 = 2^4 + 2^2 + 2^1 + 2^0 = 00010111
+\end{align*}
+\end{minipage}
+\begin{minipage}{.25\linewidth}
+	\textsf{\normalsize{Ora \textbf{nego} il 23 per ottenere -23 (e quindi inverto i bit 0 e 1 e sommo 1.)}}
+\end{minipage}
+
+\noindent\begin{minipage}{.5\linewidth}
+	\begin{equation*}
+		\begin{tikzpicture}[
+			every node/.style={column sep=.5mm,row sep=1mm}]
+			\matrix (m) [matrix of math nodes,
+			nodes in empty cells,
+			%nodes=draw
+			] 
+			{
+				& 1 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 23 \hspace{0.3cm} \textbf{BITS INVERTITI}\\    
+				&   &   &   &   &   &   &   & 1 &[10mm]		+\\ 
+				& 1 & 1 & 1 & 0 & 1 & 0 & 0 & 1 & 23 \hspace{0.3cm} \textbf{NEGATO} \\                                         
+			};
+			
+			\draw[-,color=black,semithick] (m-2-2.south west) -- (m-2-9.south east);
+		\end{tikzpicture}
+	\end{equation*}
+\end{minipage}
+\begin{minipage}{.5\linewidth}
+\textsf{\normalsize{Ora facciamo + 37 + (-23)}}
+\end{minipage}
+\begin{minipage}{.25\linewidth}
+	\begin{equation*}
+		\begin{tikzpicture}[
+			row 1/.style={font=\textsl,font=\scriptsize,black!85, anchor=west,
+				inner sep=1.5pt},
+			every node/.style={column sep=.5mm,row sep=1mm}]
+			\matrix (m) [matrix of math nodes,
+			nodes in empty cells,
+			%nodes=draw
+			] 
+			{
+				\color{green}1& \color{green}1 & 1 & 0 & 0 & 0 & 0 & 1 &   &\\
+				& 0 & 0 & 1 & 0 & 0 & 1 & 0 & 1 & (+37) +\\    
+				& 1 & 1 & 1 & 0 & 1 & 0 & 0 & 1 &[10mm] (-23)\\ 
+				& \color{red}0 & 0 & 0 & 0 & 1 & 1 & 1 & 0 & \\                                          
+			};
+			
+			\draw[-,color=black,semithick] (m-3-2.south west) -- (m-3-9.south east);
+		\end{tikzpicture}
+	\end{equation*}
+\end{minipage}
+
+\textsf{\normalsize{Quel doppio \color{green}1 \normalcolor al riporto viene \color{red}ignorato\normalcolor. \\ Quello \color{red} 0 \normalcolor nel risultato indica che il risultato è di segno positivo.}} \\
+
+$ 2^3 + 2^2 + 2^1 = 8 + 4 + 2 = \mathbf{14} $ \break
+
+% --- ESERCIZIO 15 ---
+
+\textsf{\large{\color{red} 15) \textbf{\normalcolor Quali numeri decimali sono codificabili in formato floating point utilizzando 5 cifre con segno per la mantissa e 3 cifre con segno per l'esponente? }}}
+
+\begin{tikzpicture}%[snake=zigzag, line before snake = 5mm, line after snake = 5mm]
+	% draw horizontal line   
+	\draw (-2,0) -- (2,0);
+	%\draw[snake] (2,0) -- (4,0);
+	\draw (2,0) -- (4,0);
+	\draw (4,0) -- (5,0);
+	%\draw[snake] (5,0) -- (7,0);
+	\draw (5,0) -- (9,0);
+	
+	% draw vertical lines
+	\foreach \x in {-2,0,1,2,4,5,7,9}
+	\draw (\x cm,3pt) -- (\x cm,-3pt);
+	
+	% draw nodes
+	\draw (-2,0) node[below=3pt] {\textbf{overflow negativo}} node[above=3pt] {$ -0,9999 \cdot 10^{999} $};
+	\draw (1,0) node[below=3pt] {$ -0,1 \cdot 10^{-999} $} node[above=3pt] {\textbf{underflow negativo}};
+	\draw (2,0) node[below=3pt] {$  $} node[above=3pt] {};
+	\draw (3,0) node[below=3pt] {$ 0 $} node[above=3pt] {$  $};
+	\draw (4,0) node[below=3pt] {} node[above=3pt] {$ +0,1 \cdot 10^{-999} $};
+	\draw (5,0) node[below=3pt] {\textbf{underflow positivo}} node[above=3pt] {$  $};
+	\draw (6,0) node[below=3pt] {$  $} node[above=3pt] {$  $};
+	\draw (9,0) node[below=3pt] {$ +0,99999 \cdot 10^{999} $} node[above=3pt] {\textbf{overflow positivo}};
+\end{tikzpicture}
+\quad
+
+% --- ESERCIZIO 16 ---
+
+\textsf{\large{\color{red} 16) \textbf{\normalcolor Si calcoli l'errore di arrotondamento per la rappresentazione floating point decimale (3 cifre con segno per la mantissa e 2 cifre con segno per l'esponente) dei numeri: $ 1598,58978922 \hspace{0.3cm} -0,568282$ }}} \\
+
+$v_1 < v < v_2 \hspace{0.3cm} E=\min(\mid v - v_1 \mid ; \mid v - v_2\mid)$ \\
+$ \underbrace{0,159 \cdot 10^4} < 1598 < \underbrace{0,160 \cdot 10^4} $ \\
+$ \hspace{0.5cm}1590 \hspace{3cm} 1600 $ \\
+$ \mid 1598 - 1590 \mid  = 8$ \\
+$ \mid 1598 - 1600 \mid = 2 $ \break
+
+$ \underbrace{0,589 \cdot 10^8} < 58978922 < \underbrace{0,590 \cdot 10^8} $ \\
+$ \hspace{0.3cm}58900000 \hspace{2.8cm} 59000000 $ \\
+\enlargethispage{12pt}
+%\nopagebreak
+$ \mathbf{E } = 21078 $ 
+
+% --- ESERCIZIO 17 ---
+
+\pagebreak
+
+\textsf{\large{\color{red} 17) \textbf{\normalcolor Si transformino in formato IEEE 754 in singola precisione i numeri: $ 1598, \hspace{0.3cm} -0,56640625 $}}} \\
+
+$ n = f \cdot 10^e \hspace{0.5cm} \text{ (f = \color{red} frazione o mantissa \normalcolor, e = \color{red} esponente)}$ \\
+
+$ 1598_{10} = 1100011110_2 $ \\
+
+\begin{itemize}
+
+\item \textsf{\normalsize{Ora normalizzo la mantissa, ovvero sposto la virgola al primo bit a sinistra.}} \\
+
+\centering $ 1,\color{SkyBlue}1000111110\normalcolor \cdot 2^{10} $ \\
+
+\item \flushleft\textsf{\normalsize{Esprimo l'esponente (il 10, esponente sopra il 2) in eccesso 127}} \\
+
+\centering $ 10 + 127 = 137_{10} = \color{LimeGreen!75}10001001\normalcolor_2 $ \\
+
+\item \flushleft\textsf{\normalsize{Rappresento i dati con il corretto numero di bit}} \\
+
+% $ \colorbox{yellow}{0}\colorbox{LimeGreen}{1 0 0} \framebox[2\width]{1} $ \\
+
+% $ \boxed{\colorbox{yellow}{1}} $
+
+% $ \colorbox{yellow!75}{0}\colorbox{LimeGreen}{1} $ \\
+
+$\underbrace{\fcolorbox{black}{yellow!75}{0} 
+\fcolorbox{black}{LimeGreen!75}{1} \fcolorbox{black}{LimeGreen!75}{0} \fcolorbox{black}{LimeGreen!75}{0}} _{4} \underbrace{\fcolorbox{black}{LimeGreen!75}{0} \fcolorbox{black}{LimeGreen!75}{1} \fcolorbox{black}{LimeGreen!75}{0}
+\fcolorbox{black}{LimeGreen!75}{0}} _{4} \underbrace{\fcolorbox{black}{LimeGreen!75}{1}
+\fcolorbox{black}{SkyBlue}{1} \fcolorbox{black}{SkyBlue}{0}
+\fcolorbox{black}{SkyBlue}{0}} _{\text{C}} \underbrace{\fcolorbox{black}{SkyBlue}{0}
+\fcolorbox{black}{SkyBlue}{1} \fcolorbox{black}{SkyBlue}{1}
+\fcolorbox{black}{SkyBlue}{1}} _{7} \underbrace{\fcolorbox{black}{SkyBlue}{1}
+\fcolorbox{black}{SkyBlue}{1} \fcolorbox{black}{SkyBlue}{0}
+\fcolorbox{black}{SkyBlue}{0}} _{\text{C}} \underbrace{\fcolorbox{black}{SkyBlue}{0}
+\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+\fcolorbox{black}{SkyBlue}{0}} _{0} \underbrace{\fcolorbox{black}{SkyBlue}{0}
+\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+\fcolorbox{black}{SkyBlue}{0}} _{0} \underbrace{\fcolorbox{black}{SkyBlue}{0}
+\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+\fcolorbox{black}{SkyBlue}{0}} _{0}$ \quad
+
+\textsf{\normalsize{Il primo bit in giallo riguarda il segno (se 0 è positivo, se 1 è negativo.)}} \\
+	
+\item \textsf{\normalsize{\color{red}Questa è la codifica del numero \normalcolor$1598_{10}$ in IEEE $754$, \underline{NON} \color{red}è il numero esadecimale per \normalcolor$1598$.}} \break
+
+\begin{comment}
+\begin{tcolorbox}[colback=yellow!75!,colframe=black!75!black]
+	My box.
+\end{tcolorbox}
+\end{comment}
+
+% https://tex.stackexchange.com/questions/180325/boxed-equation-with-number
+
+% https://www.overleaf.com/latex/examples/drawing-coloured-boxes-using-tcolorbox/pvknncpjyfbp
+
+\end{itemize}
+
+$-0,56640625_{10} = 0,10010001_2$ \\
+
+\textsf{\normalsize{Ora metto la virgola dopo il primo 1 a sinistra}} \\
+
+$= 1,\color{LimeGreen}0010001\normalcolor \cdot 2^{-1} $ \\
+
+\textsf{\normalsize{Ora esprimo l'esponente in eccesso 127}} \\
+
+$ -1 + 127 = 126_{10} = \color{SkyBlue}01111110\normalcolor_2 $ \\
+
+$\underbrace{\fcolorbox{black}{yellow!75}{1} 
+	\fcolorbox{black}{LimeGreen!75}{0} \fcolorbox{black}{LimeGreen!75}{1} \fcolorbox{black}{LimeGreen!75}{1}} _{B} \underbrace{\fcolorbox{black}{LimeGreen!75}{1} \fcolorbox{black}{LimeGreen!75}{1} \fcolorbox{black}{LimeGreen!75}{1}
+	\fcolorbox{black}{LimeGreen!75}{1}} _{F} \underbrace{\fcolorbox{black}{LimeGreen!75}{0}
+	\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{1}} _{1} \underbrace{\fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{1}} _{1} \underbrace{\fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0}} _{0} \underbrace{\fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0}} _{0} \underbrace{\fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0}} _{0} \underbrace{\fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0}} _{0}$ \quad
+
+\textsf{\small \color{red} Aggiungere zeri se non si arriva a 23 bits (infatti gli ultimi zeri sono stati aggiunti).} \\
+
+% --- ESERCIZIO 18 ---
+
+\textsf{\large{\color{red} 18) \textbf{\normalcolor Si calcoli il valore decimale corrispondente ai seguenti numeri in formato IEEE $ 754 $ in singola precisione.}}} \\
+
+$\underbrace{\fcolorbox{black}{yellow!75}{0}} _{\text{segno } +}
+	\underbrace{\fcolorbox{black}{LimeGreen!75}{1} \fcolorbox{black}{LimeGreen!75}{0} \fcolorbox{black}{LimeGreen!75}{0} \fcolorbox{black}{LimeGreen!75}{1} \fcolorbox{black}{LimeGreen!75}{1} \fcolorbox{black}{LimeGreen!75}{0}
+	\fcolorbox{black}{LimeGreen!75}{0} \fcolorbox{black}{LimeGreen!75}{1}} _{153 - 127 = 26 \text{ (esponente) }}
+	\underbrace{\fcolorbox{black}{SkyBlue}{1} \fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{1} \fcolorbox{black}{SkyBlue}{1}
+	\fcolorbox{black}{SkyBlue}{1} \fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{1} \fcolorbox{black}{SkyBlue}{1}
+	\fcolorbox{black}{SkyBlue}{1} \fcolorbox{black}{SkyBlue}{1}
+	\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0} \fcolorbox{black}{SkyBlue}{0}
+	\fcolorbox{black}{SkyBlue}{0}} _{1,101110111 \cdot 2^{26} = 116260864 \text{ (mantissa normalizzata) }}$ \quad
+
+\textsf{{\small Gli altri zeri nella mantissa non ci servono, quindi non li consideriamo, il numero sarebbe: $1,10111011100000000000000$ , ma noi consideriamo solo fino all'ultimo 1 e quindi scriviamo: $ \mathbf{1,101110111 \cdot 2^{26}} $}} \\
+
+% --- ESERCIZI ASSEMBLY ---
+
+\newpage
+
+\section{Esercizi Assembly}
+
+\textsf{{\normalsize Usare le ultime 4 cifre (meno significative) della propria matricola}} \\
+
+$ \textbf{unsigned short int } \text{Mat (Matricola) } = 2602_{10} = 0A2A_{16} \textbf{ (questa non è la mia matricola)}  $ \\
+
+\textsf{\large{\color{red} 1) }} \\
+
+\begin{align*}
+&\text{MOV AX,} \text{ Mat} \\
+&\text{AND AX,} \text{ 00ffh} \\
+&\text{NEG AX} \\
+&\text{MOV CX,} -4 \\
+&\text{SUB AX,} \text{ CX} \\
+&\text{MOV Ris1,} \text{ AX} \\
+\end{align*}
+
+\begin{enumerate}
+	\item \text{MOV AX, Mat}
+	\begin{itemize}
+		\item $ AX = 0A2A_{16} \hspace{0.5cm}\text{AX è un registro a 16 bit}$
+		\item $ AX = 002A_{16} = 2 \cdot 16^1 + 10 \text{ (che sarebbe A)} \cdot 16^0 = 42_{10} $ 
+	\end{itemize}
+	\item \text{AND AX, 00ffh}
+	\begin{itemize}
+		\item \text{h sta per hexadecimal (esadecimale)}
+		\item \noindent\begin{minipage}{.5\linewidth}
+			\begin{equation*}
+				\begin{tikzpicture}[
+					every node/.style={column sep=.5mm,row sep=1mm}]
+					\matrix (m) [matrix of math nodes,
+					nodes in empty cells,
+					%nodes=draw
+					] 
+					{
+						& 0 & \text{A} & 2 & \text{A} & \hspace{0.3cm} \AND\\    
+						& 0 & 0 & \text{F} & \text{F} &[10mm]		\\ 
+						& 0 & 0 & 2 & \text{A} & \\                                         
+					};
+					
+					\draw[-,color=black,semithick] (m-2-2.south west) -- (m-2-5.south east);
+				\end{tikzpicture}
+			\end{equation*}
+		\end{minipage}
+		\item \text{Oppure possiamo scriverlo in base 2:}
+		\noindent\begin{minipage}{.5\linewidth}
+			\begin{equation*}
+				\begin{tikzpicture}[
+					every node/.style={column sep=.5mm,row sep=1mm}]
+					\matrix (m) [matrix of math nodes,
+					nodes in empty cells,
+					%nodes=draw
+					] 
+					{
+						& 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & \AND\\    
+						& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 &	\\ 
+						& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & \\                                         
+					};
+					
+					\draw[-,color=black,semithick] (m-2-2.south west) -- (m-2-17.south east);
+				\end{tikzpicture}
+			\end{equation*}
+		\end{minipage}
+	\end{itemize}
+	\pagebreak
+	\item \text{NEG AX}
+	\begin{itemize}
+		\item \text{Ora neghiamo il numero invertendo i bits e sommando 1.}
+		\begin{equation*}
+			\begin{tikzpicture}[
+				every node/.style={column sep=.5mm,row sep=1mm}]
+				\matrix (m) [matrix of math nodes,
+				nodes in empty cells,
+				%nodes=draw
+				] 
+				{
+					& 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & \\    
+					&   &   &   &   &   &   &   &   &   &   &   &   &   &   &   & 1 &	\\ 
+					& 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 & 1 & 1 & 0 & \\                                         
+				};
+				
+				\draw[-,color=black,semithick] (m-2-2.south west) -- (m-2-17.south east);
+			\end{tikzpicture}
+		\end{equation*}
+	\end{itemize}
+	\textsf{{\small Ora suddividiamo i bits in gruppetti da 4 per ottenere il numero in esadecimale}} \\
+	$ \text{ così otteniamo FFD}6 \text{ ,ovvero il numero } -42_{10} $ \\
+	\item \text{MOV CX, -4} \\
+	\centering \text{CX } $ = -4 $
+	\item \text{SUB AX, CX}
+	\begin{align*}
+		\text{AX} &= -42_{10} \\
+		\text{CX} &= -4_{10} \\
+		\text{AX} &= -38_{10}  \hspace{0.2cm}(\text{ L'operazione che abbiamo fatto è stata }-42 - (-4))\\
+		\text{AX} &= \text{ FFDA}_{16}
+	\end{align*}
+	\flushleft\item \text{MOV Ris1, AX } \\
+	\centering$\text{Ris1 = AX } = \color{red}\boxed{\normalcolor-38} $
+\end{enumerate}
+
+% --- ESERCIZIO 2 ASSEMBLY ---
+
+\textsf{\large{\color{red} 2) }} \\
+
+\begin{align*}
+	&\text{XOR EAX, EAX} \\
+	&\text{MOV DX, Mat} \\
+	&\text{MOV AX, Mat} \\
+	&\text{SHL EDX, 16} \\
+	&\text{OR EDX, EAX} \\
+	&\text{BSWAP EDX} \\
+	&\text{ROL EDX, 6} \\
+	&\text{MOV Ris2, DX} \\
+\end{align*}
+
+\begin{enumerate}
+	\pagebreak
+	\item \text{XOR EAX, EAX} \\
+	\begin{itemize}
+		\item \textsf{Azzera tutti i bits di EAX}
+	\end{itemize}
+	\item \text{MOV DX, Mat} \\
+	\begin{itemize}
+		\item \text{DX } $= 2602_{10} = 0\text{A}2\text{A}_{16}$ \\
+	\end{itemize}
+	\item \text{MOV AX, Mat} \\
+	\begin{itemize}
+		\item \text{AX } $= 2602_{10} = 0\text{A}2\text{A}_{16}$ \\
+	\end{itemize}
+	\item \text{SHL EDX, } $16$ \\
+	\begin{itemize}
+		\item \text{SHL sta per "Shift Left"} \\
+		\textsf{ciò significa che spostiamo 16 bits a sinistra, i bits che fuoriescono vengono persi.} \\
+		\item  \textrm{\normalsize{\color{red} EDX \normalcolor prima dello shift}}\\
+		$ ?\hspace{0.1cm}?\hspace{0.1cm}?\hspace{0.1cm}?\hspace{0.1cm}?\hspace{0.1cm}?\hspace{0.1cm}?\hspace{0.1cm}?\hspace{0.1cm}?\hspace{0.1cm}?\hspace{0.1cm}?\hspace{0.1cm}?\hspace{0.1cm}?\hspace{0.1cm}?\hspace{0.1cm}?\hspace{0.1cm}?\underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0} _{0} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{\text{A}} \underbrace{\hspace{0.1cm}0 \hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{2} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}} _{\text{A}} $ \\
+		\item \textrm{{\normalsize} \color{red}EDX \normalcolor dopo lo shift} \\
+		$ \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0} _{0} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{\text{A}} \underbrace{\hspace{0.1cm}0 \hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{2} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}} _{\text{A}} \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}} _{0} \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}} _{0} \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}} _{0} \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}} _{0}$ \\
+	\end{itemize}
+	\item \text{OR EDX, EAX} \\
+	\begin{itemize}
+		\item \text{\color{red}EDX} \\
+		$ \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0} _{0} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{\text{A}} \underbrace{\hspace{0.1cm}0 \hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{2} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}} _{\text{A}} \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}} _{0} \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}} _{0} \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}} _{0} \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}} _{0}$ \\
+		\item \text{\color{red}EAX} \\
+		$ \underbrace{0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0} _{0} \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0} _{0} \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0} _{0} \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0} _{0} \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0} _{0} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{\text{A}} \underbrace{\hspace{0.1cm}0 \hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{2} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}} _{\text{A}} $ \\
+		\textsf{\small{\color{red}EAX \normalcolor l'avevo xorato nella prima operazione, ciò significa che tutti i bits si sono azzerati e quindi non sono come quelli di EDX , un'incognita (quelli col punto interrogativo) ma sono a zero.}} \\
+		\item \text{\color{red} OR \normalcolor EDX, EAX} \\
+		$ \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0} _{0} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{\text{A}} \underbrace{\hspace{0.1cm}0 \hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{2} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}} _{\text{A}} \underbrace{\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0} _{0} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{\text{A}} \underbrace{\hspace{0.1cm}0 \hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{2} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}} _{\text{A}}$
+	\end{itemize}
+	\enlargethispage{24pt}
+	\item \text{ BSWAP EDX} \\
+	\begin{itemize}
+		\item \text{BSWAP converte little-endian / big-endian} \\
+		$ \color{red}\underbrace{\normalcolor0\hspace{0.1cm}\text{A}\hspace{0.1cm}} _{\normalcolor\text{b3}} \color{blue}\underbrace{\normalcolor2\hspace{0.1cm}\text{A}\hspace{0.1cm}} _{\normalcolor\text{b2}} \color{blue}\underbrace{\normalcolor0\hspace{0.1cm}\text{A}\hspace{0.1cm}} _{\normalcolor\text{b1}} \color{red}\underbrace{\normalcolor2\hspace{0.1cm}\text{A}\hspace{0.1cm}} _{\normalcolor\text{b0}} \text{\normalcolor prima dello swap}$ \\
+		$ \color{red}\underbrace{\normalcolor2\hspace{0.1cm}\text{A}\hspace{0.1cm}} _{\normalcolor\text{b0}} \color{blue}\underbrace{\normalcolor0\hspace{0.1cm}\text{A}\hspace{0.1cm}} _{\normalcolor\text{b1}} \color{blue}\underbrace{\normalcolor2\hspace{0.1cm}\text{A}\hspace{0.1cm}} _{\normalcolor\text{b2}} \color{red}\underbrace{\normalcolor0\hspace{0.1cm}\text{A}\hspace{0.1cm}} _{\normalcolor\text{b3}} \text{\normalcolor dopo lo swap}$ \\
+	\end{itemize}
+	\pagebreak
+	\item \text{ROL EDX, 6} \\
+	\begin{itemize}
+		\item\textsf{\small La ROL che sta per "Rotate Left" serve per spostare i bits a sinistra, i bits che fuoriescono \textbf {non }vengono persi, tornano dall'altra parte.} \\
+		$ \underbrace{\color{red}0\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{2} \underbrace{\color{red}\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}\normalcolor1\hspace{0.1cm}0\hspace{0.1cm}} _{\text{A}} \underbrace{0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0} _{0} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}} _{\text{A}}  \underbrace{0\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{2} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}} _{\text{A}} \underbrace{0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0} _{0} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}} _{\text{A}} \text{ Prima della ROL}$ \break
+		
+		$\underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}} _{8} \underbrace{0\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{2} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}} _{8}  \underbrace{1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{\text{A}} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}} _{8} \underbrace{0\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0} _{2} \underbrace{\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}\color{red}0\hspace{0.1cm}0\normalcolor\hspace{0.1cm}} _{8} \underbrace{\color{red}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0\normalcolor \hspace{0.1cm}} _{\text{A}} \text{ Dopo la ROL}$ \\
+	\end{itemize}
+	\item \text{MOV Ris2, DX} \\
+	\begin{itemize}
+		\item \text{DX = } $ 828\text{A}$ \\
+	\end{itemize}
+\end{enumerate}
+
+% --- ESERCIZIO 3 ASSEMBLY ---
+
+\textsf{\large{\color{red} 3) }} \\
+
+\begin{align*}
+	&\text{MOV AX, Mat} \\
+	&\text{LEA ESI, Vet} \\
+	&\text{MOV [ESI+10], AX} \\
+	&\text{SHL AX, 4} \\
+	&\text{MOV [ESI+12], AX} \\
+	&\text{MOV ECX, 4} \\
+	&\text{L1: MOV AH, [ESI+ECX+9]} \\
+	&\text{MOV [ESI+ECX+20], AH} \\
+	&\text{LOOP L1} \\
+	&\text{MOV AH, [ESI+24]} \\
+	&\text{XOR AL, AL} \\
+	&\text{MOV Ris3, AX} \\
+\end{align*}
+
+\begin{enumerate}
+	\item \text{MOV AX, Mat} \\
+	\begin{itemize}
+		\item \text{AX = 0A2A}
+	\end{itemize}
+	\item \text{LEA ESI, Vet} \\
+	\begin{itemize}
+		\item \textsf{{\small LEA serve per leggere l'indirizzo di memoria di una variabile/vettore}} \\
+		\item \text{ESI = \&Vet} \\
+	\end{itemize}
+	\item \text{MOV [ESI + 10], AX} \\
+	\enlargethispage{12pt}
+	\begin{itemize}
+		\item \text{AX = A2A0} \\
+	\end{itemize}
+	\pagebreak
+	\item \text{SHL AX, 4} \\
+	\item \text{MOV [ESI + 12], AX} \\
+	\item[8.] \text{MOV [ESI + ECX + 20], AH} \\
+	\begin{itemize}
+		\item \textsf{{\small Shiftiamo di 4 bits che corrisponde ad una cifra esadecimale.}} \\
+		\begin{comment}
+			\begin{tikzpicture}[
+				node distance=0pt,
+				start chain = A going right,
+				X/.style = {rectangle, draw,% styles of nodes in string (chain)
+					minimum width=2ex, minimum height=3ex,
+					outer sep=0pt, on chain},
+				B/.style = {decorate,
+					decoration={brace, amplitude=5pt,
+						pre=moveto,pre length=1pt,post=moveto,post length=1pt,
+						raise=1mm,
+						#1}, % for mirroring of brace, if necessary
+					thick},
+				B/.default=mirror, % by default braces are mirrored
+				]
+				\foreach \i in {0,1,1,0,0,0,1,0,0,
+					0,1,0,1,0,0,0,1,0,
+					0,0,1,1,0,0,1,0,0}% <-- content of nodes
+				\node[X] {\i};
+				\draw[B] ( A-1.south west) -- node[below=2mm] {Channel 1 Links} ( A-9.south east);
+				\draw[B] (A-10.south west) -- node[below=2mm] {Channel 2 Links} (A-18.south east);
+				\draw[B] (A-19.south west) -- node[below=2mm] {Channel 3 Links} (A-27.south east);
+				\node (B1) [inner sep=1pt,above=of A-10.north west] {$\times$};
+				\node (B2) [inner sep=1pt,above=of A-19.north west] {$\times$};
+				\draw[B=](B1.north) -- node[above=2mm] {Crossover Points}(B2.north);
+			\end{tikzpicture}
+	\end{comment}
+	
+	\begin{tikzpicture}[
+		node distance=0pt,
+		start chain = A going right,
+		X/.style = {rectangle, draw,% styles of nodes in string (chain)
+			minimum width=2ex, minimum height=3ex,
+			outer sep=0pt, on chain},
+		B/.style = {decorate,
+			decoration={brace, amplitude=5pt,
+				pre=moveto,pre length=1pt,post=moveto,post length=1pt,
+				raise=1mm,
+				#1}, % for mirroring of brace, if necessary
+			thick},
+		B/.default=mirror, % by default braces are mirrored
+		]
+		\foreach \i in {,,,,,,,,,
+			\color{red}2A,\color{red}0A,\normalcolor A0,A2,,,,,,
+			,,,2A,0A,A0,A2,,}% <-- content of nodes
+		\node[X] {\i};
+		%\draw[B] ( A-1.south west) -- node[below=2mm] {Channel 1 Links} ( A-9.south east);
+		%\draw[B] (A-10.south west) -- node[below=2mm] {Channel 2 Links} (A-18.south east);
+		%\draw[B] (A-19.south west) -- node[below=2mm] {Channel 3 Links} (A-27.south east);
+		%\node (B1) [inner sep=1pt,above=of A-10.north west] {$\times$};
+		%\node (B2) [inner sep=1pt,above=of A-19.north west] {$\times$};
+		%\draw[B=](B1.north) -- node[above=2mm] {Crossover Points}(B2.north);
+	\end{tikzpicture}
+	
+	% https://cremeronline.com/LaTeX/minimaltikz.pdf
+	% http://www.tug.org/pracjourn/2007-1/mertz/mertz.pdf
+	\end{itemize}
+	\item \text{MOV ECX, 4} \\
+	\begin{itemize}
+		\item \text{ECX = 4} \\
+	\end{itemize}
+	\item \text{L1: MOV AH, [ESI + ECX + 9]} \\
+	\item[9.] \text{LOOP L1} \\
+	\begin{itemize}
+		\item \text{AX = A2A0} \\
+		\item \text{ECX = 3} \\
+		\item \text{AX = A0A0} \\
+		\item \text{ECX = 2} \\
+		\item \text{AX = A0A0} \\
+		\item \text{ECX = 1} \\
+		\item \text{AX = 2AA0} \\
+		\item \text{ECX = 0} \\
+	\end{itemize}
+	\item[10.] \text{MOV AH, [ESI + 24]} \\
+	\begin{itemize}
+		\item \text{AX = A2A0} \\
+	\end{itemize}
+	\item[11.] \text{XOR AL, AL} \\
+	\begin{itemize}
+		\item \text{AX = A200} \\
+	\end{itemize}
+	\item[12.] \text{MOV Ris3, AX} \\
+	\begin{itemize}
+		\item \text{Ris3 = AX = \color{red}\boxed{\normalcolor A200}} \\
+	\end{itemize}
+\end{enumerate}
+
+% --- ESERCIZIO 4 ASSEMBLY ---
+
+\newpage
+
+\textsf{\large{\color{red} 4) }} \\
+
+\begin{align*}
+	&\text{MOV AX, Mat} \\
+	&\text{AND AX, 5Eh} \\
+	&\text{MOV BL, 0FDh} \\
+	&\text{IDIV BL} \\
+	&\text{MOV Ris4, AX} \\
+\end{align*}
+
+\begin{enumerate}
+	\item \text{MOV AX, Mat} \\
+	\begin{itemize}
+		\item \text{AX = 0A2A} \\
+	\end{itemize}
+	\item \text{AND AX, 5Eh} \\
+	\begin{itemize}
+		\item \begin{equation*}
+			\begin{tikzpicture}[
+				every node/.style={column sep=.5mm,row sep=1mm}]
+				\matrix (m) [matrix of math nodes,
+				nodes in empty cells,
+				%nodes=draw
+				] 
+				{
+					& 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & 1 & 0 & \AND\\    
+					& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 1 & 1 & 1 & 0 &	\\ 
+					& 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 1 & 0 & 1 & 0 & \\                                         
+				};
+				
+				\draw[-,color=black,semithick] (m-2-2.south west) -- (m-2-17.south east);
+			\end{tikzpicture}
+		\end{equation*}
+	\item \text{AX = $ 000$\text{A}$_{16}$ = $10_{10}$} \\
+	\end{itemize}
+	\item \text{MOV BL, 0FDh} \\
+	\begin{itemize}
+		\item \text{BL = } \text{FD}$_{16} = -3_{10}$ \\
+	\end{itemize}
+	\item \text{IDIV BL}
+	\begin{itemize}
+		\item \text{AX = 01FD} \\
+	\end{itemize}
+	\item \text{MOV Ris4, AX} \\
+	\begin{itemize}
+		\item \text{Ris4 = AX = 01FD} \\
+	\end{itemize}
+\end{enumerate}
+
+% --- ESERCIZIO 5 ASSEMBLY ---
+
+\pagebreak
+
+\textsf{\large{\color{red} 5) }} \\
+
+\begin{align*}
+	&\text{MOV AX, Mat} \\
+	&\text{XOR BL, BL} \\
+	&\text{DEC BL} \\
+	&\text{DEC BL} \\
+	&\text{IMUL BL} \\
+	&\text{MOV Ris5, AX} \\
+\end{align*}
+
+\begin{enumerate}
+	\item \text{MOV AX, Mat} \\
+	\begin{itemize}
+		\item \text{AX = 0A2A} \\
+	\end{itemize}
+	\item \text{XOR BL, BL} \\
+	\begin{itemize}
+		\item \text{BL =   00} \\
+	\end{itemize}
+	\item \text{DEC BL} \\
+	\item \text{DEC BL} \\
+	\begin{itemize}
+		\item \textsf{{\small Il DEC è il contrario dell' INC, questo (DEC) decrementa di 1 il registro.}} \\
+		\item \text{BL = -2} \\
+	\end{itemize}
+	\item \text{IMUL BL} \\
+	\begin{itemize}
+		\item \text{AL = 2A = $0\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0 = 2^5 + 2^3 + 2^1 = 32 + 8 + 2 = 42$} \\
+		\item $42 \cdot (-2) = -84 $ \\
+		\item $84 = 0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{0.1cm}0\hspace{.1cm}0\hspace{0.1cm}0\hspace{.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{0.1cm}0\hspace{0.1cm}1\hspace{.1cm}0\hspace{0.1cm}0$ \\
+		\textsf{{\small Ora invertiamo questi bits del numero 84 (i bits che stanno a 1 li mettiamo a 0 e viceversa) e sommiamo 1.}} \\
+		\begin{equation*}
+			\begin{tikzpicture}[
+				every node/.style={column sep=.5mm,row sep=1mm}]
+				\matrix (m) [matrix of math nodes,
+				nodes in empty cells,
+				%nodes=draw
+				] 
+				{
+					& 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 & 1 & 0 & 1 & 1 & +\\    
+					&   &   &   &   &   &   &   &   &   &   &   &   &   &   &   & 1 &	\\ 
+					& 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 & 0 & 1 & 1 & 0 & 0 & \\                                         
+				};
+				
+				\draw[-,color=black,semithick] (m-2-2.south west) -- (m-2-17.south east);
+			\end{tikzpicture}
+		\end{equation*}
+	\end{itemize}
+	\item \text{MOV Ris5, AX} \\
+	\begin{itemize}
+		\item \text{Ris5 = AX = \color{red}\boxed{\normalcolor \text{FFAC}}} \\
+	\end{itemize}
+\end{enumerate}
+
+\newpage
+
+\include{./Architetture_Degli_Elaboratori2.tex}
+
+\include{./Architetture_Degli_Elaboratori3.tex}
+
+\end{document}
